@@ -12,14 +12,13 @@
         <div class="container">
             <h1>Register</h1>
 
-            <form name="frmReg" id="frmReg" method="POST" class="form horizontal">
+            <form name="frmReg" id="frmReg" method="POST" action="@routes.Application.register()"class="form horizontal">
+                <!-- <form name="frmReg" id="frmReg" method="POST" action="/registerpage" class="form horizontal">-->
                 <div class="row">
                     <div class = "col-sm-6">
                         <div class="form-group">
-                            <form name = "frmReg" id = "frmReg" method = "POST">
                                 <label for ="name">Name</label>
-                                <input type ="text" name = "Name" id ="Name" class ="form-control" placeholder="Enter Name">
-                            </form>
+                                <input type ="text" name = "username" id ="Name" class ="form-control" placeholder="Enter Name">
                         </div>
                     </div>
                 </div>
@@ -37,7 +36,7 @@
                     <div class = "col-sm-6">
                         <div class="form-group">
                             <label for ="name">Password</label>
-                            <input type ="password" name = "pass" id ="pass"  class="form-control" placeholder="Enter Password"/>
+                            <input type ="password" name = "password" id ="pass"  class="form-control" placeholder="Enter Password"/>
                         </div>
                     </div>
                 </div>
@@ -46,7 +45,7 @@
                     <div class = "col-sm-6">
                         <div class="form-group">
                             <label for ="name">Confirm Password</label>
-                            <input type ="password" name = "pass" id ="pass"  class="form-control" placeholder="Enter Password Again"/>
+                            <input type ="password" name = "password" id ="pass"  class="form-control" placeholder="Enter Password Again"/>
                         </div>
                     </div>
                 </div>
@@ -55,12 +54,13 @@
                     <div class = "col-sm-6">
                         <div class="form-group">
                             <label for ="name">Mobile</label>
-                            <input type ="password" name = "pass" id ="pass"  class="form-control" placeholder="Enter Mobile No."/>
+                            <input type ="password" name = "mobile" id ="pass"  class="form-control" placeholder="Enter Mobile No."/>
                         </div>
                     </div>
                 </div>
 
-                <input type ="submit" value ="submit" class="btn btn-primary"="submit">
+                <!--<input type ="submit" class="btn btn-primary">-->
+                <button id="btnreg" type="submit" class="btn btn-primary">Submit</button>
 
             </form>
 
