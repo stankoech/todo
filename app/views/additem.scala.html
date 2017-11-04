@@ -1,0 +1,57 @@
+@(title: String)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    </head>
+
+    <body>
+        <div class ="container">
+            <h3>Add Item</h3>
+
+            <form name="frmReg" id="frmReg" method="POST" action="@routes.Application.additem()" class="form horizontal">
+                    <!--<form name ="form2" method ="post" class="form horizontal">-->
+                <div class ="row">
+                    <div class = "col-sm-6">
+                        <div class = "form-group">
+                            <label for ="catg_id">Category ID:</label>
+                            <!--<input type ="select" name="catg_id" id ="categoryID" class ="form-control">-->
+                            <select id="categoryID" class="form-control" name="catg_id" title="Please select category">
+                                @for(category <- Category.getAllCategories()) {
+                                    <option value="@category.Id">@category.name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class ="row">
+                    <div class = "col-sm-6">
+                        <div class = "form-group">
+                            <label for ="name">Item Name:</label>
+                            <input type ="text" name="name" id ="name"class ="form-control" placeholder="Enter Item Name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class ="row">
+                    <div class = "col-sm-6">
+                        <div class = "form-group">
+                            <label for ="textare">Description:</label>
+                            <input type ="text" name="description" id ="name" class ="form-control" placeholder="Enter Item Desc">
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                    <!--<a href="dashboard.html" class="btn btn btn-primary">Submit</a>-->
+                <button id="btnreg" type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </body>
+
+</html>

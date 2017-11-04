@@ -4,6 +4,8 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
+
 /**
  * Created by Stankoech on 10/31/2017.
  */
@@ -29,9 +31,14 @@ public class User extends Model {
     //Check for a unique user with given username
     //@Param Username
     public static User finduserbyusername(String username){
-        //select 1 from tbl_users where username=username
         return find.where().eq("username",username).findUnique();
+    }
+    public static  User finduserbypassword(String password){
+        return find.where().eq("password",password).findUnique();
+    }
 
+    public static List<User> getAllUsers(){
+        return find.where().findList();
     }
 
 }

@@ -12,7 +12,7 @@
         <div class="container">
             <h1>Register</h1>
 
-            <form name="frmReg" id="frmReg" method="POST" action="@routes.Application.register()"class="form horizontal">
+            <form name="frmReg" id="frmReg" method="POST" action="@routes.Application.register()" class="form horizontal">
                 <!-- <form name="frmReg" id="frmReg" method="POST" action="/registerpage" class="form horizontal">-->
                 <div class="row">
                     <div class = "col-sm-6">
@@ -64,7 +64,8 @@
 
             </form>
 
-            <a href ="login.html">Login</a>
+           <!-- <a href ="login.html">Login</a>-->
+            <a href="@routes.Application.index()">Login</a>
 
         </div>
 

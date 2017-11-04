@@ -1,0 +1,84 @@
+@(title: String)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-inverse" >
+            <div class ="container">
+                <div class ="navbar-header">
+                    <button type ="button" class="navbar-toggle collapsed" data toggle = "collapse" data-target = "#navbar" aria-expanded="false" aria-controls ="navbar">
+                        <span class ="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class ="navbar-brand" href ='/recipecategorylist'>My TODO</a>
+
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class ="nav navbar-nav">
+                        <li class ="active"><a href ='/recipecategorylist'>Home</a>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li> <a href="@routes.Application.index()">Logout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class ="container">
+            <button type="button" class="btn btn-default btn-lg btn btn-primary" >
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            </button>
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                                <!--<h2><span class = "label label-default">To Do categories</h2>-->
+                            <h2>To Do categories</h2>
+                        </div>
+                        <div class="nav pull-right">
+                            <a href="addcategory.html" class="btn btn-primary navbar-btn">Add
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="primary">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(category <- Category.getAllCategories()) {
+                        <tr>
+                            <td>
+                                @category.Id
+                            </td>
+                            <td>
+                                @category.name
+                            </td>
+                            <td><a href="edititems.html"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
+                            <td><a href="#"><input type="submit" value ="View" class="btn btn-primary"></a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </body>
+    <html>
