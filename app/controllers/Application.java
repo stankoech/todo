@@ -103,7 +103,7 @@ public class Application extends Controller {
         String description=form.get("description");
 
         Category newcat =new Category ();
-        newcat.name=name.toLowerCase();
+        newcat.name=name;
         newcat.description=description;
 
         newcat.save();
@@ -112,8 +112,8 @@ public class Application extends Controller {
         categ.put("message", "New Category created successfully");
         categ.put("code","2000");
 
-
-        return ok(categ);
+       // return ok(categ);
+        return tododetails();
     }
 
 
@@ -126,7 +126,7 @@ public class Application extends Controller {
 
         Item newitem =new Item();
         newitem.catg_id=catg_id;
-        newitem.item_name=name.toLowerCase();
+        newitem.item_name=name;
         newitem.item_desc=description;
 
         newitem.save();
@@ -135,7 +135,6 @@ public class Application extends Controller {
         aditem.put("message", "New Item added successfully");
         aditem.put("code","2001");
 
-
-        return ok(aditem);
+        return tododetails();
     }
 }

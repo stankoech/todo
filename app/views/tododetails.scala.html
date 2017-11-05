@@ -19,12 +19,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class ="navbar-brand" href ='/recipecategorylist'>My TODO</a>
+                    <a class ="navbar-brand" href ="@routes.Application.tododetails()">My TODO</a>
 
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class ="nav navbar-nav">
-                        <li class ="active"><a href ='/recipecategorylist'>Home</a>
+                        <li class ="active"><a href ="@routes.Application.tododetails()">Home</a>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li> <a href="@routes.Application.index()">Logout</a></li>
@@ -46,9 +46,10 @@
                             <h2>To Do categories</h2>
                         </div>
                         <div class="nav pull-right">
-                            <a href="addcategory.html" class="btn btn-primary navbar-btn">Add
+                            <a href="@routes.Application.addcategoryPage()" class="btn btn-primary navbar-btn">Add
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
+
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                         <tr class="primary">
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Edit</th>
+                            <th>Add Item</th>
                             <th>View</th>
                         </tr>
                     </thead>
@@ -71,7 +72,7 @@
                             <td>
                                 @category.name
                             </td>
-                            <td><a href="edititems.html"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
+                            <td><a href="@routes.Application.itemPage()"><input type="submit" value ="Add Item" class="btn btn-primary"></a></td>
                             <td><a href="#"><input type="submit" value ="View" class="btn btn-primary"></a></td>
                         </tr>
                         }
