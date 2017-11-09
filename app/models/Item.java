@@ -5,6 +5,7 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Created by Stankoech on 11/4/2017.
@@ -25,8 +26,15 @@ public class Item extends Model {
 
     public static Finder<Long, Item> find=new Finder<Long, Item>(Long.class, Item.class);
 
-    public static Item finditembyitemName(String item_name){
-        return find.where().eq("name",item_name).findUnique();
+    public static Item finditembyitemName(String catg_id){
+        return find.where().eq("id",catg_id).findUnique();
+    }
+    public static List<Item> getCategoryWise(Long catg_id){
+        return find.where().eq("catg_id",catg_id).findList();
+    }
+
+    public static List<Item> getAllItems(){
+        return find.where().findList();
     }
 
 }

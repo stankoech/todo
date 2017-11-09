@@ -9,9 +9,11 @@ POST    /register                   controllers.Application.register()
 POST    /login                      controllers.Application.login()
 GET     /categorypage               controllers.Application.addcategoryPage()
 POST    /category                   controllers.Application.addcategory()
-GET     /itempage                   controllers.Application.itemPage()
+GET     /itempage                   controllers.Application.itemPage(catg_id: Long)
 POST    /item                       controllers.Application.additem()
 GET     /tododetails                controllers.Application.tododetails()
+GET     /viewitems                  controllers.Application.viewitems(id: Long)
+GET     /deletecat                  controllers.Application.deletecat()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

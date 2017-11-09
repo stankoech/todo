@@ -25,14 +25,17 @@ public class Application extends Controller {
         return ok(addcategory.render("Add Catehories"));
     }
 
-    public static Result itemPage(){
-        return ok(additem.render("ITEMS"));
+    public static Result itemPage(Long catgId){
+        return ok(additem.render("ITEMS",catgId));
     }
 
     public static Result tododetails(){
         return ok(tododetails.render("DASHBOARD"));
     }
 
+    public static Result viewitems(Long categoryId){
+        return ok(viewitems.render("VIEITEMS",categoryId));
+    }
     public static Result login() {
         ObjectNode result=play.libs.Json.newObject();
         DynamicForm form= Form.form().bindFromRequest();
@@ -135,6 +138,27 @@ public class Application extends Controller {
         aditem.put("message", "New Item added successfully");
         aditem.put("code","2001");
 
+        return viewitems(Long.valueOf(catg_id));
+    }
+
+    public static Result deletecat(){
+        ObjectNode categ= play.libs.Json.newObject();
+        DynamicForm form= Form.form().bindFromRequest();
+        String name=form.get("name");
+        String description=form.get("description");
+
+        Category newcat =new Category ();
+        newcat.name=name;
+        newcat.description=description;
+
+        newcat.delete();
+
+        Logger.info("name",name);
+        categ.put("message", "New Category created successfully");
+        categ.put("code","2000");
+
+        // return ok(categ);
         return tododetails();
     }
+
 }

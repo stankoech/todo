@@ -1,4 +1,4 @@
-@(title: String)
+@(title: String,categoryId: Long)
 
 <!DOCTYPE html>
 
@@ -43,10 +43,10 @@
                     <div class="row">
                         <div class="col-sm-6">
                                 <!--<h2><span class = "label label-default">To Do categories</h2>-->
-                            <h2>To Do categories</h2>
+                            <h2>View Items</h2>
                         </div>
                         <div class="nav pull-right">
-                            <a href="@routes.Application.addcategoryPage()" class="btn btn-primary navbar-btn">Add
+                            <a href="@routes.Application.itemPage(categoryId)" class="btn btn-primary navbar-btn">Add Items
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
 
@@ -57,27 +57,30 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="primary">
-                            <th>ID</th>
-                            <th>Name</th>
+                            <th>Item ID</th>
+                            <th>Category Name</th>
+                            <th>Item Name</th>
                             <th>Edit</th>
-                            <th>View</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for(category <- Category.getAllCategories()) {
+                    @for(item <- Item.getCategoryWise(categoryId)) {
                         <tr>
                             <td>
-                                @category.Id
+                            @item.Id
                             </td>
                             <td>
-                                @category.name
+                                @Category.finditembyitemName(item.catg_id).name
+
                             </td>
-                            <td><a href="@routes.Application.addcategoryPage()"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
-                            <td><a href="@routes.Application.viewitems(category.Id)"><input type="submit" value ="View" class="btn btn-primary"></a></td>
-                            <td><a href="@routes.Application.viewitems(category.Id)"><input type="submit" value ="Delete" class="btn btn-primary"></a></td>
+                            <td>
+                            @item.item_name
+                            </td>
+                            <td><a href="@routes.Application.itemPage(categoryId)"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
+                            <td><a href="@routes.Application.itemPage(categoryId)"><input type="submit" value ="Delete" class="btn btn-primary"></a></td>
                         </tr>
-                        }
+                    }
                     </tbody>
                 </table>
             </div>
