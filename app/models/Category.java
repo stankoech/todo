@@ -15,7 +15,7 @@ import java.util.List;
 public class Category extends Model{
 
     @Id
-    public long Id;
+    public Long Id;
 
     public String name;
 
@@ -33,8 +33,8 @@ public class Category extends Model{
         return find.where().eq("Id",Long.valueOf(catg_id)).findUnique();
     }
 
-    public static Category deleteCat(String catg_id){
-        return find.where().eq("Id",Long.valueOf(catg_id)).findUnique();
+    public static Category findbyCategoryId(Long id){
+        return find.where().eq("Id",id).findUnique();
     }
 
 }

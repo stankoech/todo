@@ -27,9 +27,10 @@
                         <li class ="active"><a href ="@routes.Application.tododetails()">Home</a>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li> <a href="@routes.Application.index()">Logout</a></li>
+                        <li> <a href="@routes.Application.logout()">Logout</a></li>
 
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -73,9 +74,9 @@
                             <td>
                                 @category.name
                             </td>
-                            <td><a href="@routes.Application.addcategoryPage()"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
+                            <td><a href="@routes.Application.editcategoryPage(category.Id)"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
                             <td><a href="@routes.Application.viewitems(category.Id)"><input type="submit" value ="View" class="btn btn-primary"></a></td>
-                            <td><a href="@routes.Application.viewitems(category.Id)"><input type="submit" value ="Delete" class="btn btn-primary"></a></td>
+                            <td><a href="@routes.Application.deletecat(category.Id)"><input type="submit" value ="Delete" class="btn btn-primary"></a></td>
                         </tr>
                         }
                     </tbody>

@@ -1,9 +1,11 @@
 package models;
 
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.Constraint;
 import java.util.List;
 
 /**
@@ -16,12 +18,16 @@ public class User extends Model {
     @Id
     public Long Id;
 
+    @Constraints.Required
     public String username;
 
+    @Constraints.Required
     public  String email;
 
+    @Constraints.Required
     public String password;
 
+    @Constraints.Required
     public String mobile;
 
     public static Finder<Long, User> find=new Finder<Long, User>(Long.class, User.class);

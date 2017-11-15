@@ -15,7 +15,7 @@ import java.util.List;
 public class Item extends Model {
 
     @Id
-    public long Id;
+    public Long Id;
 
     public String catg_id;
 
@@ -31,6 +31,10 @@ public class Item extends Model {
     }
     public static List<Item> getCategoryWise(Long catg_id){
         return find.where().eq("catg_id",catg_id).findList();
+    }
+
+    public static Item findbyitemId(Long id){
+        return find.where().eq("Id",id).findUnique();
     }
 
     public static List<Item> getAllItems(){
