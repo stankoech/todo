@@ -24,6 +24,7 @@ create table tbl_users (
   email                     varchar(255),
   password                  varchar(255),
   mobile                    varchar(255),
+  pin                       integer,
   constraint pk_tbl_users primary key (id))
 ;
 

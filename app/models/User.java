@@ -30,6 +30,9 @@ public class User extends Model {
     @Constraints.Required
     public String mobile;
 
+    @Constraints.Required
+    public Integer pin;
+
     public static Finder<Long, User> find=new Finder<Long, User>(Long.class, User.class);
     //Helps us to find items.
 

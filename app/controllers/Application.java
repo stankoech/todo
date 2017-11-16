@@ -21,10 +21,6 @@ public class Application extends Controller {
         return ok(register.render("Register"));
     }
 
-    public static Result forgotpassword(Long userId) {
-        return ok(forgotpassword.render("forgot password", userId));
-    }
-
     public static Result addcategoryPage(){
         return ok(addcategory.render("Add Categories"));
     }
@@ -82,6 +78,7 @@ public class Application extends Controller {
         String email=form.get("email");
         String password=form.get("password");
         String mobile=form.get("mobile");
+        Integer pin= Integer.valueOf(form.get("pin"));
 
         if (User.finduserbyusername(username)!=null){
             result.put("message", "User "+username +"already exists");
@@ -95,6 +92,7 @@ public class Application extends Controller {
         myuser.email=email;
         myuser.password=password;
         myuser.mobile=mobile;
+        myuser.pin=pin;
         myuser.save();
 
         Logger.info("username",username);
@@ -248,5 +246,42 @@ public class Application extends Controller {
                 routes.Application.index()
         );
     }
+
+    public static Result viewpassword(User user){
+        return ok(viewpassword.render("VIEWPASSWORD",user));
+    }
+
+    public static Result forgotpasswordpage() {
+        return ok(forgotpassword.render("forgot password"));
+    }
+
+    public static Result forgotpassword() {
+        ObjectNode result=play.libs.Json.newObject();
+        DynamicForm form= Form.form().bindFromRequest();
+        Logger.info(form.get("username"));
+
+        String username=form.get("username");
+        Integer pin= Integer.valueOf(form.get("pin"));
+
+
+        User newuser=User.finduserbyusername(username);
+        if (newuser!=null){
+            //check password
+            if (!newuser.pin.equals(pin)){
+                result.put("message", "Invalid PIN");
+                result.put("code","201");
+                return ok(result);
+            }
+        }
+        else {
+            result.put("message", "Invalid Username");
+            result.put("code","201");
+            return ok(result);
+
+        }
+       // return ok(result);
+        return viewpassword(newuser);
+    }
+
 
 }
