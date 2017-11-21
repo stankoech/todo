@@ -22,61 +22,78 @@ public class Application extends Controller {
     }
 
     public static Result addcategoryPage(){
+        if(!isLoggedIn())
+            return index();
         return ok(addcategory.render("Add Categories"));
     }
 
 
     public static Result itemPage(Long catgId){
+        if(!isLoggedIn())
+            return index();
         return ok(additem.render("ITEMS",catgId));
     }
 
     public static Result tododetails(){
+        if(!isLoggedIn())
+            return index();
         return ok(tododetails.render("DASHBOARD"));
     }
 
     public static Result viewitems(Long categoryId){
+        if(!isLoggedIn())
+            return index();
         return ok(viewitems.render("VIEITEMS",categoryId));
     }
 
     public static Result login() {
-        ObjectNode result=play.libs.Json.newObject();
-        DynamicForm form= Form.form().bindFromRequest();
+        ObjectNode result = play.libs.Json.newObject();
+        DynamicForm form = Form.form().bindFromRequest();
         Logger.info(form.get("username"));
 
-        String username=form.get("username");
-        String password=form.get("password");
+        String username = form.get("username");
+        String password = form.get("password");
 
-        User newuser=User.finduserbyusername(username);
+        User newuser = User.finduserbyusername(username);
 
-        if (newuser!=null){
+        if (newuser != null) {
             //check password
-         if (!newuser.password.equals(password)){
-             result.put("message", "Invalid Password");
-             result.put("code","201");
-             return ok(result);
-         }
-        }
-         else {
-            result.put("message", "Invalid Username");
-            result.put("code","201");
-            return ok(result);
+            if (!newuser.password.equals(password)) {
+                result.put("message", "Invalid Password");
+                result.put("code", "201");
+                return ok(result);
+            }
+            }
+        else {
+                result.put("message", "Invalid Username");
+                result.put("code", "201");
+                return ok(result);
+            }
 
-        }
+            //creating a session
+            session("username", username);
+            result.put("message", "Login successful");
+            result.put("code", "203");
 
-        result.put("message", "Login successful");
-        result.put("code","203");
         //return ok(result);
-        return tododetails();
-    }
+            return tododetails();
+        }
 
     //public static Result dashboard() {
         //return ok(dashboard.render("Dashboard"));}
-    public static Result register(){
-        ObjectNode result= play.libs.Json.newObject();
-        DynamicForm form= Form.form().bindFromRequest();
-        String username=form.get("username");
-        String email=form.get("email");
-        String password=form.get("password");
+    public static Result register() {
+        ObjectNode result = play.libs.Json.newObject();
+        DynamicForm form = Form.form().bindFromRequest();
+        String username = form.get("username");
+        String email = form.get("email");
+        String password = form.get("password");
+        String cpassword = form.get("cpassword");
+
+        if (!password.equals(cpassword)) {
+            return ok("Password mismatch");
+        }
+
+
         String mobile=form.get("mobile");
         Integer pin= Integer.valueOf(form.get("pin"));
 
@@ -168,6 +185,8 @@ public class Application extends Controller {
     }
 
     public static Result editcategoryPage(Long id){
+        if(!isLoggedIn())
+            return index();
         Category editcat = Category.findbyCategoryId(id);
         return ok(editcategory.render("Edit Category",id,editcat));
     }
@@ -212,6 +231,8 @@ public class Application extends Controller {
     }
 
     public static Result edititemPage(Long id){
+        if(!isLoggedIn())
+            return index();
         Item edititem =Item.findbyitemId(id);
         return ok(views.html.edititem.render("Edit Item",id,edititem));
      }
@@ -283,5 +304,15 @@ public class Application extends Controller {
         return viewpassword(newuser);
     }
 
+    //session reading
+
+    public static boolean isLoggedIn() {
+        String user = session().get("username");
+        if(user != null)
+            return true;
+
+        return false;
+    }
+    // Using join to retrieve data
 
 }
