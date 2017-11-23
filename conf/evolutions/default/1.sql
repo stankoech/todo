@@ -21,10 +21,11 @@ create table item (
 create table tbl_users (
   id                        bigint auto_increment not null,
   username                  varchar(255),
-  email                     varchar(255),
+  email                     varchar(255) not null,
   password                  varchar(255),
   mobile                    varchar(255),
   pin                       integer,
+  constraint uq_tbl_users_email unique (email),
   constraint pk_tbl_users primary key (id))
 ;
 

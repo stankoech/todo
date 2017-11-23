@@ -3,6 +3,8 @@ package models;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,12 +21,13 @@ public class User extends Model {
     @Id
     public Long Id;
 
-    @Constraints.Required
+    @Constraints.Required(message = "my.required.message")
     @Formats.NonEmpty
     public String username;
 
     @Constraints.Required
     @Formats.NonEmpty
+    @Column(unique = true,nullable = false)
     public  String email;
 
     @Constraints.Required

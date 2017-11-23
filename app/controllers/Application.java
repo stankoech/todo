@@ -5,7 +5,6 @@ import models.Category;
 import models.Item;
 import models.User;
 import play.*;
-import play.api.libs.json.Json;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
@@ -38,6 +37,7 @@ public class Application extends Controller {
         if(!isLoggedIn())
             return index();
         return ok(tododetails.render("DASHBOARD"));
+
     }
 
     public static Result viewitems(Long categoryId){
@@ -78,7 +78,6 @@ public class Application extends Controller {
         //return ok(result);
             return tododetails();
         }
-
     //public static Result dashboard() {
         //return ok(dashboard.render("Dashboard"));}
     public static Result register() {
@@ -117,7 +116,8 @@ public class Application extends Controller {
         result.put("code","2000");
 
 
-        return ok(result);
+        //return ok(result);
+        return registerPage();
     }
 
     public static Result addcategory(){
@@ -147,6 +147,7 @@ public class Application extends Controller {
 
        // return ok(categ);
         return tododetails();
+
     }
 
 
@@ -182,6 +183,7 @@ public class Application extends Controller {
             Logger.info("Category Not Found!");
         }
         return tododetails();
+
     }
 
     public static Result editcategoryPage(Long id){
@@ -207,6 +209,7 @@ public class Application extends Controller {
             categ.put("code","201");
             return tododetails();
 
+
         }
 
         Logger.info("name",name);
@@ -214,6 +217,7 @@ public class Application extends Controller {
         categ.put("code","2000");
 
         return tododetails();
+
     }
 
 
@@ -228,6 +232,7 @@ public class Application extends Controller {
             Logger.info("Item Not Found!");
         }
         return tododetails();
+
     }
 
     public static Result edititemPage(Long id){
@@ -255,9 +260,11 @@ public class Application extends Controller {
             editm.put("code","201");
             return tododetails();
 
+
         }
 
         return tododetails();
+
     }
 
     public static Result logout() {
@@ -321,5 +328,10 @@ public class Application extends Controller {
            return user;
 
         return null;
+    }
+
+    public static User getUserBySession(){
+        String userall = session().get("username");
+        return User.finduserbyusername(userall);
     }
 }

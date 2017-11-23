@@ -1,5 +1,7 @@
 package models;
 
+
+import controllers.Application;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -21,11 +23,19 @@ public class Category extends Model{
 
     public String description;
 
+    public Long user_id;
+
 
     public static Finder<Long, Category> find=new Finder<Long, Category>(Long.class, Category.class);
 
     public static List<Category> getAllCategories(){
-        return find.where().findList();
+        User user= Application.getUserBySession();
+        return find.where().eq("user_id",user.Id).findList();
+        //return find.where().eqfindUnique();
+    }
+
+    public static Category findCategorybyUserId(Long user){
+        return find.where().eq("user_id",user).findUnique();
         //return find.where().eqfindUnique();
     }
 
