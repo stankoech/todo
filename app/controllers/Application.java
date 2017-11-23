@@ -313,6 +313,13 @@ public class Application extends Controller {
 
         return false;
     }
-    // Using join to retrieve data
+    //Display user in dashboard
 
+    public static String displayUser() {
+        String user = session().get("username");
+       if(user != null)
+           return user;
+
+        return null;
+    }
 }

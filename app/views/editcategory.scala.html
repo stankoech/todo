@@ -1,41 +1,7 @@
 @(title: String, Id:Long, editcat: Category)
 
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-    </head>
-
-    <body>
-
-        <nav class="navbar navbar-inverse" >
-            <div class ="container">
-                <div class ="navbar-header">
-                    <button type ="button" class="navbar-toggle collapsed" data toggle = "collapse" data-target = "#navbar" aria-expanded="false" aria-controls ="navbar">
-                        <span class ="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class ="navbar-brand" href ="@routes.Application.tododetails()">My TODO</a>
-
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class ="nav navbar-nav">
-                        <li class ="active"><a href ="@routes.Application.tododetails()">Home</a>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li> <a href="@routes.Application.index()">Logout</a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class ="container">
+@main(title){
+         <div class ="container">
             <h3>Edit Category</h3>
 
             <form name="frmReg" id="frmReg" method="POST" action="@routes.Application.editcategory()" class="form horizontal">
@@ -66,6 +32,4 @@
             </form>
 
         </div>
-    </body>
-
-</html>
+}
