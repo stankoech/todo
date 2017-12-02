@@ -86,27 +86,27 @@
                 var pin=$('#pin').val();
                 //validation if blank
                 if (username===''){
-                    alert("Enter Username");
+                    swal("Enter Username");
                     return false;
                 }
                 if (email===''){
-                    alert("Enter Email Id");
+                    swal("Enter Email Id");
                     return false;
                 }
                 if (password===''){
-                    alert("Enter Password");
+                    swal("Enter Password");
                     return false;
                 }
                 if (confirm_password===''){
-                    alert("Please confirm your Password");
+                    swal("Please confirm your Password");
                     return false;
                 }
                 if (mobile===''){
-                    alert("Enter your Mobile No.");
+                    swal("Enter your Mobile No.");
                     return false;
                 }
                 if (pin===''){
-                    alert("Enter PIN to help recover your password in future");
+                    swal("Enter PIN to help recover your password in future");
                     return false;
                 }
                 $.ajax({
@@ -116,15 +116,40 @@
                     data: $('form[name=frmReg]').serialize(),
                     success: function (response) {
                       console.log(response);
-                      //alert(response.code+" "+response.message);
-                        swal({
-                            title: "Success!",
-                            text: response.message,
-                            type: "success"
-                        });
+                        if (response.code==='200'){
+                            swal({
+                                        title: "Sure you want to save?",
+                                        text:  "Pressing Yes will Save data, Cancel-go back",
+                                        type: "info",
+                                        showCancelButton: true,
+                                        confirmButtonClass: "btn-primary",
+                                        confirmButtonText: "Yes!",
+                                        closeOnConfirm: false,
+                                        closeOnCancel: false
+                                    },
+                                    function(isConfirm){
+                                        if (isConfirm){
+                                            swal({
+                                                title: response.title,
+                                                text: response.message,
+                                                type: "success"
+                                            },
+                                            function() {
+                                                form.submit()});
 
-                      if (response.code==='200'){
-                          window.location='/';
+                                        } else {
+                                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                        }
+                                        //swal("Great!", "You have recovered your password", "success");
+                                       // window.location='/';
+                                    });
+                        }
+                        else{
+                            swal({
+                                title: response.title,
+                                text: response.message,
+                                type: "error"
+                            });
                       }
                     },
                     error: function (error) {

@@ -16,10 +16,6 @@ public class Application extends Controller {
         return ok(login.render("Login || TODO"));
     }
 
-    public static Result registerPage() {
-        return ok(register.render("Register"));
-    }
-
     public static Result addcategoryPage(){
         if(!isLoggedIn())
             return index();
@@ -60,11 +56,13 @@ public class Application extends Controller {
             //check password
             if (!newuser.password.equals(password)) {
                 result.put("message", "Invalid Password");
+                result.put("title", Play.application().configuration().getString("app.login.error"));
                 result.put("code", "201");
                 return ok(result);
             }
             }
         else {
+                result.put("title", Play.application().configuration().getString("app.login.error"));
                 result.put("message", "Invalid Username");
                 result.put("code", "201");
                 return ok(result);
@@ -72,14 +70,18 @@ public class Application extends Controller {
 
             //creating a session
             session("username", username);
+            result.put("title", Play.application().configuration().getString("app.login.success"));
             result.put("message", "Login successful");
             result.put("code", "200");
 
            return ok(result);
            // return tododetails();
         }
-    //public static Result dashboard() {
-        //return ok(dashboard.render("Dashboard"));}
+
+    public static Result registerPage() {
+        return ok(register.render("Register"));
+    }
+
     public static Result register() {
         ObjectNode result = play.libs.Json.newObject();
         DynamicForm form = Form.form().bindFromRequest();
@@ -97,12 +99,11 @@ public class Application extends Controller {
         Integer pin= Integer.valueOf(form.get("pin"));
 
         if (User.finduserbyusername(username)!=null){
+            result.put("title", "Registration Error");
             result.put("message", "User "+username +"already exists");
             result.put("code","201");
             return ok(result);
         }
-
-
         User myuser =new User();
         myuser.username=username.toLowerCase();
         myuser.email=email;
@@ -112,9 +113,9 @@ public class Application extends Controller {
         myuser.save();
 
         Logger.info("username",username);
+        result.put("title", "Registration Success");
         result.put("message", "User has been created successful");
         result.put("code","200");
-
 
         return ok(result);
         //return registerPage();
@@ -144,6 +145,7 @@ public class Application extends Controller {
         newcat.save();
 
         Logger.info("name",name);
+        categ.put("title", "Category Success");
         categ.put("message", "New Category created successfully");
         categ.put("code","200");
 
@@ -167,6 +169,7 @@ public class Application extends Controller {
         newitem.save();
 
         Logger.info("name",name);
+        aditem.put("title", "Item Success");
         aditem.put("message", "New Item added successfully");
         aditem.put("code","200");
         aditem.put("catId",catg_id);
@@ -208,6 +211,7 @@ public class Application extends Controller {
             newuser.description = description;
             newuser.user_id=getUserBySession().Id;
             newuser.save();
+            categ.put("title", "Category Success");
             categ.put("message", "Category edited successfully");
             categ.put("code","200");
             //return tododetails();
@@ -258,6 +262,7 @@ public class Application extends Controller {
             newitem.item_name = name;
             newitem.item_desc = description;
             newitem.save();
+            editm.put("title", "Item Success");
             editm.put("message", "Item edited successfully");
             editm.put("code","200");
             //return tododetails();
@@ -297,21 +302,23 @@ public class Application extends Controller {
         if (newuser!=null){
             //check password
             if (!newuser.pin.equals(pin)){
+                result.put("title", "PIN Error");
                 result.put("message", "Invalid PIN");
                 result.put("code","201");
                 return ok(result);
             }
         }
         else {
+            result.put("title", "Login Error");
             result.put("message", "Invalid Username");
             result.put("code","201");
             return ok(result);
 
         }
-
-        result.put("message", "Invalid Username");
+        result.put("title", "Password Success");
+        result.put("message", "Password retrieve Successfully");
         result.put("code","200");
-        result.put("pass",newuser.password);
+        result.put("pass","Your password is "+newuser.password);
         return ok(result);
 
 //        return viewpassword(newuser);

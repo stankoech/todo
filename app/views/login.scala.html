@@ -7,6 +7,7 @@
     <head>
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/sweetalert.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body>
@@ -60,11 +61,11 @@
                     var password=$('#inputPassword').val();
                     //validation if username is blank
                     if (username===''){
-                        alert("Enter Username");
+                        swal("Please Enter the Username");
                         return false;
                     }
                     if (password===''){
-                        alert("Enter Password");
+                        swal("Now Enter Password");
                         return false;
                     }
                    // alert("Username: "+username+" Password: "+password);
@@ -77,16 +78,20 @@
                             console.log(response);
                             //alert(response.code+" "+response.message);
                            // swal(response.message);
-
-                            swal({
-                                title: "Success!",
-                                text: response.message,
-                                type: "success"
-                            });
-
-                           // if (response.code==='200'){
-                           //     window.location='/tododetails';
-                           // }
+                            if (response.code==='200'){
+                                swal({
+                                    title: response.title,
+                                    text: response.message,
+                                    type: "success"
+                                });
+                                window.location='/tododetails';
+                            } else{
+                                swal({
+                                    title: response.title,
+                                    text: response.message,
+                                    type: "error"
+                                });
+                            }
                         },
                         error: function (error) {
                             console.log(error);
