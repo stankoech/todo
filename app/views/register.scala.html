@@ -109,56 +109,52 @@
                     swal("Enter PIN to help recover your password in future");
                     return false;
                 }
-                $.ajax({
-                    type: "POST",
-                    url: '/register',
-                    dataType: 'json',
-                    data: $('form[name=frmReg]').serialize(),
-                    success: function (response) {
-                      console.log(response);
-                        if (response.code==='200'){
-                            swal({
-                                        title: "Sure you want to save?",
-                                        text:  "Pressing Yes will Save data, Cancel-go back",
-                                        type: "info",
-                                        showCancelButton: true,
-                                        confirmButtonClass: "btn-primary",
-                                        confirmButtonText: "Yes!",
-                                        closeOnConfirm: false,
-                                        closeOnCancel: false
-                                    },
-                                    function(isConfirm){
-                                        if (isConfirm){
+
+                swal({      title: "Sure you want to save?",
+                            text:  "Pressing Yes will Save data, Cancel-go back",
+                            type: "info",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-primary",
+                            confirmButtonText: "Yes!",
+                            cancelButtonText: "Cancel!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function(isConfirm){
+                            if (isConfirm){
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/register',
+                                    dataType: 'json',
+                                    data: $('form[name=frmReg]').serialize(),
+                                    success: function (response) {
+                                        console.log(response);
+                                        if (response.code==='200'){
                                             swal({
                                                 title: response.title,
                                                 text: response.message,
                                                 type: "success"
-                                            },
-                                            function() {
-                                                form.submit()});
-
-                                        } else {
-                                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                            });
+                                            window.location = '/';
                                         }
-                                        //swal("Great!", "You have recovered your password", "success");
-                                       // window.location='/';
-                                    });
-                        }
-                        else{
-                            swal({
-                                title: response.title,
-                                text: response.message,
-                                type: "error"
-                            });
-                      }
-                    },
-                    error: function (error) {
-                    console.log(error) ;
-                    }
-                });
-                
+                                        else{
+                                            swal({
+                                                title: response.title,
+                                                text: response.message,
+                                                type: "error"
+                                            });
+                                        }
+                                    },
+                                    error: function (error) {
+                                        console.log(error) ;
+                                    }
+                                });
+                            }
+                            else {
+                                swal("Cancelled", "Go back and edit your details :)", "error");
+                            }
+                        });
             });
-            
         });
     </script>
 }
