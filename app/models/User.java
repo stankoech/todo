@@ -21,25 +21,22 @@ public class User extends Model {
     @Id
     public Long Id;
 
-    @Constraints.Required(message = "my.required.message")
-    @Formats.NonEmpty
+    @Constraints.Required
+    @Constraints.MinLength(value = 4)
     public String username;
 
     @Constraints.Required
-    @Formats.NonEmpty
     @Column(unique = true,nullable = false)
     public  String email;
 
     @Constraints.Required
-    @Formats.NonEmpty
+    @Constraints.MinLength(value = 6)
     public String password;
 
     @Constraints.Required
-    @Formats.NonEmpty
     public String mobile;
 
     @Constraints.Required
-    @Formats.NonEmpty
     public Integer pin;
 
     public static Finder<Long, User> find=new Finder<Long, User>(Long.class, User.class);
@@ -54,9 +51,7 @@ public class User extends Model {
     public static  User finduserbypassword(String password){
         return find.where().eq("password",password).findUnique();
     }
-
     public static List<User> getAllUsers(){
         return find.where().findList();
     }
-
 }

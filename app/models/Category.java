@@ -34,11 +34,6 @@ public class Category extends Model{
         //return find.where().eqfindUnique();
     }
 
-    public static Category findCategorybyUserId(Long user){
-        return find.where().eq("user_id",user).findUnique();
-        //return find.where().eqfindUnique();
-    }
-
     public static Category finditembyitemName(String catg_id){
         return find.where().eq("Id",Long.valueOf(catg_id)).findUnique();
     }

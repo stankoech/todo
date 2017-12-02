@@ -73,10 +73,10 @@ public class Application extends Controller {
             //creating a session
             session("username", username);
             result.put("message", "Login successful");
-            result.put("code", "203");
+            result.put("code", "200");
 
-        //return ok(result);
-            return tododetails();
+           return ok(result);
+           // return tododetails();
         }
     //public static Result dashboard() {
         //return ok(dashboard.render("Dashboard"));}
@@ -112,18 +112,19 @@ public class Application extends Controller {
         myuser.save();
 
         Logger.info("username",username);
-        result.put("message", "Users created successful");
-        result.put("code","2000");
+        result.put("message", "User has been created successful");
+        result.put("code","200");
 
 
-        //return ok(result);
-        return registerPage();
+        return ok(result);
+        //return registerPage();
     }
 
     public static Result addcategory(){
         ObjectNode categ= play.libs.Json.newObject();
         DynamicForm form= Form.form().bindFromRequest();
         //Long Id=form.get("Id");
+       // Long user_id= Long.valueOf(form.get("user_id"));
         String name=form.get("name");
         String description=form.get("description");
 
@@ -136,6 +137,7 @@ public class Application extends Controller {
         }*/
 
         Category newcat =new Category ();
+        newcat.user_id=getUserBySession().Id;
         newcat.name=name;
         newcat.description=description;
 
@@ -143,11 +145,10 @@ public class Application extends Controller {
 
         Logger.info("name",name);
         categ.put("message", "New Category created successfully");
-        categ.put("code","2000");
+        categ.put("code","200");
 
-       // return ok(categ);
-        return tododetails();
-
+        //return tododetails();
+        return ok(categ);
     }
 
 
@@ -167,9 +168,11 @@ public class Application extends Controller {
 
         Logger.info("name",name);
         aditem.put("message", "New Item added successfully");
-        aditem.put("code","2001");
+        aditem.put("code","200");
+        aditem.put("catId",catg_id);
 
-        return viewitems(Long.valueOf(catg_id));
+        //return viewitems(Long.valueOf(catg_id));
+        return ok(aditem);
     }
 
     public static Result deletecat(Long id) {
@@ -183,7 +186,6 @@ public class Application extends Controller {
             Logger.info("Category Not Found!");
         }
         return tododetails();
-
     }
 
     public static Result editcategoryPage(Long id){
@@ -204,20 +206,20 @@ public class Application extends Controller {
         if (newuser!=null){
             newuser.name = name;
             newuser.description = description;
+            newuser.user_id=getUserBySession().Id;
             newuser.save();
             categ.put("message", "Category edited successfully");
-            categ.put("code","201");
-            return tododetails();
-
-
+            categ.put("code","200");
+            //return tododetails();
+            return ok(categ);
         }
 
         Logger.info("name",name);
         categ.put("message", "New Category created successfully");
-        categ.put("code","2000");
+        categ.put("code","200");
 
-        return tododetails();
-
+        //return tododetails();
+        return ok(categ);
     }
 
 
@@ -257,13 +259,12 @@ public class Application extends Controller {
             newitem.item_desc = description;
             newitem.save();
             editm.put("message", "Item edited successfully");
-            editm.put("code","201");
-            return tododetails();
-
-
+            editm.put("code","200");
+            //return tododetails();
+            return ok(editm);
         }
-
-        return tododetails();
+        //return tododetails();
+        return ok(editm);
 
     }
 
@@ -307,8 +308,13 @@ public class Application extends Controller {
             return ok(result);
 
         }
-       // return ok(result);
-        return viewpassword(newuser);
+
+        result.put("message", "Invalid Username");
+        result.put("code","200");
+        result.put("pass",newuser.password);
+        return ok(result);
+
+//        return viewpassword(newuser);
     }
 
     //session reading

@@ -4,7 +4,7 @@
         <div class="container">
             <h1>Register</h1>
 
-            <form name="frmReg" id="frmReg" method="POST" action="@routes.Application.register()" class="form horizontal">
+            <form name="frmReg" id="frmReg" method="POST" class="form horizontal">
                 <!-- <form name="frmReg" id="frmReg" method="POST" action="/registerpage" class="form horizontal">-->
                 <div class="row">
                     <div class = "col-sm-6">
@@ -37,7 +37,7 @@
                     <div class = "col-sm-6">
                         <div class="form-group">
                             <label for ="name">Confirm Password</label>
-                            <input type ="password" name = "cpassword" id ="pass"  class="form-control" placeholder="Enter Password Again"/>
+                            <input type ="password" name = "cpassword" id ="cpass"  class="form-control" placeholder="Enter Password Again"/>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                 </div>
 
                 <!--<input type ="submit" class="btn btn-primary">-->
-                <button id="btnreg" type="submit" class="btn btn-primary">Submit</button>
+                <button id="btnReg" type="button" class="btn btn-primary">Submit</button>
 
             </form>
 
@@ -71,5 +71,69 @@
 
         </div>
 
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/jquery-2.2.3.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/sweetalert.min.js")" type="text/javascript"></script>
+
+    <script>
+        $(function () {
+            $('#btnReg').on('click',function () {
+                var username=$('#Name').val();
+                var email=$('#email').val();
+                var password=$('#pass').val();
+                var confirm_password=$('#cpass').val();
+                var mobile=$('#mob').val();
+                var pin=$('#pin').val();
+                //validation if blank
+                if (username===''){
+                    alert("Enter Username");
+                    return false;
+                }
+                if (email===''){
+                    alert("Enter Email Id");
+                    return false;
+                }
+                if (password===''){
+                    alert("Enter Password");
+                    return false;
+                }
+                if (confirm_password===''){
+                    alert("Please confirm your Password");
+                    return false;
+                }
+                if (mobile===''){
+                    alert("Enter your Mobile No.");
+                    return false;
+                }
+                if (pin===''){
+                    alert("Enter PIN to help recover your password in future");
+                    return false;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/register',
+                    dataType: 'json',
+                    data: $('form[name=frmReg]').serialize(),
+                    success: function (response) {
+                      console.log(response);
+                      //alert(response.code+" "+response.message);
+                        swal({
+                            title: "Success!",
+                            text: response.message,
+                            type: "success"
+                        });
+
+                      if (response.code==='200'){
+                          window.location='/';
+                      }
+                    },
+                    error: function (error) {
+                    console.log(error) ;
+                    }
+                });
+                
+            });
+            
+        });
+    </script>
 }

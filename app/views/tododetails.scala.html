@@ -41,7 +41,8 @@
                             </td>
                             <td><a href="@routes.Application.editcategoryPage(category.Id)"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
                             <td><a href="@routes.Application.viewitems(category.Id)"><input type="submit" value ="View" class="btn btn-primary"></a></td>
-                            <td><a href="@routes.Application.deletecat(category.Id)"><input type="submit" value ="Delete" class="btn btn-primary"></a></td>
+                            <td><a href="@routes.Application.deletecat(category.Id)">
+                                <button id="btnDel" type="button" value ="Delete" class="btn btn-primary">Delete</button></a></td>
                         </tr>
                         }
                     </tbody>
@@ -49,4 +50,27 @@
             </div>
 
         </div>
+
+    <script>
+            $(function () {
+                $('#btnDel').on('click',function () {
+                        swal({
+                                    title: "Are you sure?",
+                                    text: "You will not be able to recover this lorem ipsum!",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Yes, delete it!",
+                                    closeOnConfirm: false
+                                },
+                                function(){
+                                    $("#myform").submit();
+                                });
+
+                });
+
+            });
+    </script>
+
+
 }

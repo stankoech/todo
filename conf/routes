@@ -12,11 +12,15 @@ GET     /categorypage               controllers.Application.addcategoryPage()
 POST    /category                   controllers.Application.addcategory()
 GET     /itempage                   controllers.Application.itemPage(catg_id: Long)
 POST    /item                       controllers.Application.additem()
+
 GET     /tododetails                controllers.Application.tododetails()
+
 GET     /viewitems                  controllers.Application.viewitems(id: Long)
 GET     /deletecat                  controllers.Application.deletecat(id: Long)
+
 GET     /editcategorypage           controllers.Application.editcategoryPage(id: Long)
 POST    /editcategory               controllers.Application.editcategory()
+
 GET     /deleteitem                 controllers.Application.deleteitem(id: Long)
 GET     /edititempage               controllers.Application.edititemPage(id: Long)
 POST    /edititem                   controllers.Application.edititem()
