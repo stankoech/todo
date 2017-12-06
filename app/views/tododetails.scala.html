@@ -1,4 +1,54 @@
 @(title: String)
+<script>
+        function deleteCategory(id){
+            //alert(id);
+            swal({      title: "Sure you want to Delete this item?",
+                        text:  "Pressing Yes will delete your data permanently",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn-primary",
+                        confirmButtonText: "Yes!",
+                        cancelButtonText: "Cancel!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function(isConfirm){
+                        if (isConfirm){
+                            $.ajax({
+                                type: "POST",
+                                url: '/deletingcat',
+                                dataType: 'json',
+                                data: {'categoryId':id},
+                                success: function (response) {
+                                    console.log(response);
+                                    if (response.code==='200'){
+                                        swal({
+                                            title: response.title,
+                                            text: response.message,
+                                            type: "success"
+                                        });
+                                        window.location = '/tododetails';
+                                    }
+                                    else{
+                                        swal({
+                                            title: response.title,
+                                            text: response.message,
+                                            type: "error"
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error) ;
+                                }
+                            });
+                        }
+                        else {
+                            swal("Cancelled", "You can still delete later", "error");
+                        }
+                    });
+
+        }
+</script>
 @main(title){
         <div class ="container">
             <button type="button" class="btn btn-default btn-lg btn btn-primary" >
@@ -41,8 +91,8 @@
                             </td>
                             <td><a href="@routes.Application.editcategoryPage(category.Id)"><input type="submit" value ="Edit" class="btn btn-primary"></a></td>
                             <td><a href="@routes.Application.viewitems(category.Id)"><input type="submit" value ="View" class="btn btn-primary"></a></td>
-                            <td><a href="@routes.Application.deletecat(category.Id)">
-                                <button id="btnDel" type="button" value ="Delete" class="btn btn-primary">Delete</button></a></td>
+                            <!--<td><a href="routes.Application.deletecat(category.Id)"><input type="submit" value ="Delete" class="btn btn-primary"></a></td>-->
+                            <td><button id="btnDel" type="button" value ="Delete" onclick="deleteCategory(@category.Id); return false;" class="btn btn-primary">Delete</button></td>
                         </tr>
                         }
                     </tbody>
@@ -50,27 +100,6 @@
             </div>
 
         </div>
-
-    <script>
-            $(function () {
-                $('#btnDel').on('click',function () {
-                        swal({
-                                    title: "Are you sure?",
-                                    text: "You will not be able to recover this lorem ipsum!",
-                                    type: "warning",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#DD6B55",
-                                    confirmButtonText: "Yes, delete it!",
-                                    closeOnConfirm: false
-                                },
-                                function(){
-                                    $("#myform").submit();
-                                });
-
-                });
-
-            });
-    </script>
 
 
 }

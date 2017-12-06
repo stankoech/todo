@@ -179,17 +179,57 @@ public class Application extends Controller {
     }
 
     public static Result deletecat(Long id) {
+        ObjectNode result= play.libs.Json.newObject();
+        DynamicForm form= Form.form().bindFromRequest();
+
         Category del = Category.findbyCategoryId(id);
 
         if (del!= null) {
             Logger.info("Category Found! Now delete it!");
             del.delete();
+
+            result.put("title", "Done!");
+            result.put("message", "Category Deleted Successfully");
+            result.put("code","200");
         }
         else {
             Logger.info("Category Not Found!");
+
+            result.put("title", "Cancelled!");
+            result.put("message", "Category Deleted Successfully");
+            result.put("code","20");
+
         }
-        return tododetails();
+        return ok(result);
     }
+
+
+    public static Result deletingCat(){
+        ObjectNode result= play.libs.Json.newObject();
+        DynamicForm form= Form.form().bindFromRequest();
+        Long Id= Long.valueOf(form.get("categoryId"));
+
+        Category del = Category.findbyCategoryId(Id);
+
+        if (del!= null) {
+            Logger.info("Category Found! Delete it!");
+            del.delete();
+
+            result.put("title", "Done!");
+            result.put("message", "Category Deleted Successfully");
+            result.put("code","200");
+        }
+        else {
+            Logger.info("Category Not Found!");
+
+            result.put("title", "Error!");
+            result.put("message", "Category cannot be deleted");
+            result.put("code","200");
+
+        }
+        return ok(result);
+    }
+
 
     public static Result editcategoryPage(Long id){
         if(!isLoggedIn())

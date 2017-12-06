@@ -17,6 +17,7 @@ GET     /tododetails                controllers.Application.tododetails()
 
 GET     /viewitems                  controllers.Application.viewitems(id: Long)
 GET     /deletecat                  controllers.Application.deletecat(id: Long)
+POST    /deletingcat                controllers.Application.deletingCat()
 
 GET     /editcategorypage           controllers.Application.editcategoryPage(id: Long)
 POST    /editcategory               controllers.Application.editcategory()

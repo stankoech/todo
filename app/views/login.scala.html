@@ -8,6 +8,7 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/sweetalert.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/toastr.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body>
@@ -51,6 +52,7 @@
         <script src="@routes.Assets.at("js/jquery-2.2.3.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("js/sweetalert.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("js/toastr.min.js")" type="text/javascript"></script>
 
         <script>
             $(function () {
@@ -61,11 +63,12 @@
                     var password=$('#inputPassword').val();
                     //validation if username is blank
                     if (username===''){
-                        swal("Please Enter the Username");
+                        toastr.info("Please Enter the Username");
                         return false;
                     }
                     if (password===''){
-                        swal("Now Enter Password");
+                        //swal("Now Enter Password");
+                        toastr.info("Now Enter Password");
                         return false;
                     }
                    // alert("Username: "+username+" Password: "+password);
